@@ -1,8 +1,8 @@
 # macOS Software Update and Application Compliance Checker
 
-A read-only Bash toolkit for reporting pending macOS updates, installed applications, versions, code signatures, notarisation results, and basic compliance findings.
+A macOS toolkit for checking update and application compliance and maintaining the built-in update services.
 
-## Usage
+## Audit
 
 ```bash
 chmod +x src/macos_software_compliance.sh
@@ -15,18 +15,24 @@ Optional application assessment:
 sudo ./src/macos_software_compliance.sh --app /Applications/Example.app
 ```
 
-## Checks performed
+## Maintenance and repair
 
-- macOS version and build
-- Pending updates and installation history
-- Installed applications and versions
-- Code-signature and Gatekeeper assessment for an optional app
-- Applications missing version metadata or signatures
-- Text, CSV, and JSON reports
+Preview service maintenance:
 
-## Safety
+```bash
+chmod +x src/macos_software_compliance_repair.sh
+sudo ./src/macos_software_compliance_repair.sh --repair --dry-run
+```
 
-The script never installs updates, removes applications, changes trust settings, or modifies quarantine attributes.
+Run service maintenance:
+
+```bash
+sudo ./src/macos_software_compliance_repair.sh --repair
+```
+
+The repair script restarts the update and installer services, supports the built-in recommended or complete update modes, records every action, and runs a fresh update check afterward. Confirmation prompts and dry-run mode are included.
+
+Update operations can take time and may require a restart. Application signature findings are reported but are not changed automatically.
 
 ## Author
 
